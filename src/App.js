@@ -1,11 +1,9 @@
-import ThemeToggle from "./components/ThemeToggle";
-import TodayDate from "./components/TodayDate";
+import Home from "./pages/Home";
 
 function App() {
   return (
-    <div className="min-h-bg-white dark:bg-black h-screen">
-      <TodayDate></TodayDate>
-      <ThemeToggle></ThemeToggle>
+    <div className="w-screen dark:bg-black h-screen flex justify-center ">
+      <Home></Home>
     </div>
   );
 }
