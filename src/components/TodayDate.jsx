@@ -7,13 +7,12 @@ import React from "react";
 export default function TodayDate(props) {
   console.log("Today Date Ran");
   const current = new Date();
-  const dateFormatted = `${getDayOfWeek(current.getDay())}, ${getMonth(
+  const dateFormatted = `${getMonth(
     current.getMonth() + 1
   )} ${current.getDate()}`;
 
   return (
     <div className={`text-center ${props.className}`}>
-      <p className="text-xl text-gray-800 dark:text-gray-300">Today is </p>
       <p className="font-sans font-bold text-2xl text-gray-800 dark:text-gray-300">
         {dateFormatted}
       </p>

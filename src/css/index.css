@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#Gain5-RightHand {
+  animation: gain5arm 2s infinite;
+}
+@keyframes gain5arm {
+  50% {
+    transform-origin: left;
+    transform: translate(-5px, -10px) rotate(5deg);
+  }
+}
+#Head-Bobble {
+  animation: headbobble 2s infinite;
+}
+
+@keyframes headbobble {
+  50% {
+    transform-origin: left center;
+    transform: rotate(-2deg);
+  }
+}
+
+#Gain0-RightArm {
+  animation: gain0arm 2s infinite;
+}
+
+@keyframes gain0arm {
+  50% {
+    transform-origin: top right;
+    transform: rotate(5deg);
+  }
+}
+
+#Gain10Hands {
+  animation: gain10hands 2s infinite;
+}
+
+@keyframes gain10hands {
+  50% {
+    transform-origin: top right;
+    transform: translateY(10px);
+  }
+}
+
+.glow-red {
+  text-align: center;
+  -webkit-animation: glow-red 1.5s ease infinite alternate;
+  -moz-animation: glow-red 1.5s ease infinite alternate;
+  animation: glow-red 1.5s ease infinite alternate;
+}
+
+@keyframes glow-red {
+  from {
+    text-shadow: 0px 0px 0px #ff000000;
+  }
+  to {
+    text-shadow: 0px 0px 8px #ff6464;
+  }
+}
+
+.glow-green {
+  text-align: center;
+  -webkit-animation: glow-green 1.5s ease infinite alternate;
+  -moz-animation: glow-green 1.5s ease infinite alternate;
+  animation: glow-green 1.5s ease infinite alternate;
+}
+@keyframes glow-green {
+  from {
+    text-shadow: 0px 0px 0px #00ff0000;
+  }
+  to {
+    text-shadow: 0px 0px 8px #00ff00;
+  }
+}
+
+.theBoard {
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
+}
+
+.rotateThis {
+  transform: scaleX(1) scaleY(1) scaleZ(1) rotateX(0deg) rotateY(-51deg)
+    rotateZ(0deg) translateX(0px) translateY(0px) translateZ(0px) skewX(10deg)
+    skewY(0deg);
+}
