@@ -47,7 +47,7 @@ export default function Tabs() {
           borderTopWidth: 0,
           elevation: 0,
           height: 80,
-          backgroundColor: "#181818",
+          backgroundColor: "#222431",
           display: "flex",
         },
       }}
