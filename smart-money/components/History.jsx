@@ -130,6 +130,56 @@ export default function History() {
           </Text>
         </View>
       </View>
+
+      <View
+        style={{
+          width: "100%",
+          height: 80,
+          flexDirection: "row",
+          alignItems: "flex-start",
+          justifyContent: "space-between",
+
+          paddingLeft: 30,
+          paddingRight: 30,
+        }}
+      >
+        <View style={{ height: "100%" }}>
+          <Text
+            style={{
+              color: "#A5A5A5",
+              textAlign: "left",
+              fontSize: 16,
+            }}
+          >
+            Ben Dover
+          </Text>
+          <Text
+            style={{
+              color: "#505265",
+              fontSize: 12,
+              marginTop: 4,
+              textAlign: "left",
+            }}
+          >
+            Today, 2:24 PM
+          </Text>
+        </View>
+        <View style={{ height: "100%" }}>
+          <Text style={{ color: "#A5A5A5", fontSize: 16, textAlign: "right" }}>
+            - 50.42 $
+          </Text>
+          <Text
+            style={{
+              color: "#505265",
+              fontSize: 12,
+              marginTop: 4,
+              textAlign: "right",
+            }}
+          >
+            Lend
+          </Text>
+        </View>
+      </View>
     </View>
   );
 }

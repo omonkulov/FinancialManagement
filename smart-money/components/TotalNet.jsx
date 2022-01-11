@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   secondary: {
     fontSize: 18,
-    marginBottom: 10,
+    marginBottom: 18,
     color: "#505265",
   },
 });

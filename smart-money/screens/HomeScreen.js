@@ -21,7 +21,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.root}>
       <View style={styles.containerTotal}>
-        <TotalNet total={88.68} />
+        <TotalNet total={38.26} />
       </View>
       <View
         style={{
@@ -30,12 +30,13 @@ export default function HomeScreen() {
           borderRadius: 25,
           paddingBottom: 5,
           paddingTop: 5,
-          marginTop: 20,
+          marginTop: 0,
+          marginBottom: 100,
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <MainChart data={[0, -24.42, 88.68]} style={{ width: "100%" }} />
+        <MainChart data={[0, -24.42, 88.68, 38.26]} style={{ width: "100%" }} />
       </View>
 
       <History />
@@ -46,7 +47,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   containerTotal: {
     width: "100%",
-    height: 100,
+    height: 150,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 10,
