@@ -1,187 +1,74 @@
-import { Ionicons } from "@expo/vector-icons";
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Svg, { Line } from "react-native-svg";
-import LABELS from "./Labels";
+import { Ionicons } from '@expo/vector-icons'
+import React, { useEffect } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import Svg, { Line } from 'react-native-svg'
+import { FlatList } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import LABELS from './Labels'
+import Transaction from './Transaction'
+import { addTransaction } from '../redux/actions'
 
-const Card = (amount, time, label, desc) => {
-  return (
-    <View
-      style={{
-        width: "100%",
-        height: 100,
-      }}
-    >
-      <Text>{label}</Text>
-    </View>
-  );
-};
-
-export default function History() {
-  return (
-    <View style={{ flex: 1, width: "100%" }}>
-      <Text
-        style={{
-          textAlign: "center",
-          fontSize: 18,
-          margin: 20,
-          color: "#505265",
-        }}
-      >
-        Transactions
-      </Text>
-
-      <View
-        style={{
-          width: "100%",
-          height: 80,
-          flexDirection: "row",
-          alignItems: "flex-start",
-          justifyContent: "space-between",
-
-          paddingLeft: 30,
-          paddingRight: 30,
-        }}
-      >
-        <View style={{ height: "100%" }}>
-          <Text
-            style={{
-              color: "#A5A5A5",
-              textAlign: "left",
-              fontSize: 16,
-            }}
-          >
-            Chipotle
-          </Text>
-          <Text
-            style={{
-              color: "#505265",
-              fontSize: 12,
-              marginTop: 4,
-              textAlign: "left",
-            }}
-          >
-            Today, 12:24 PM
-          </Text>
-        </View>
-        <View style={{ height: "100%" }}>
-          <Text style={{ color: "#A5A5A5", fontSize: 16, textAlign: "right" }}>
-            - 24.42 $
-          </Text>
-          <Text
-            style={{
-              color: "#505265",
-              fontSize: 12,
-              marginTop: 4,
-              textAlign: "right",
-            }}
-          >
-            Self-Care
-          </Text>
-        </View>
-      </View>
-
-      <View
-        style={{
-          width: "100%",
-          height: 80,
-          flexDirection: "row",
-          alignItems: "flex-start",
-          justifyContent: "space-between",
-
-          paddingLeft: 30,
-          paddingRight: 30,
-        }}
-      >
-        <View style={{ height: "100%" }}>
-          <Text
-            style={{
-              color: "#A5A5A5",
-              textAlign: "left",
-              fontSize: 16,
-            }}
-          >
-            Get-Go
-          </Text>
-          <Text
-            style={{
-              color: "#505265",
-              fontSize: 12,
-              marginTop: 4,
-              textAlign: "left",
-            }}
-          >
-            Today, 12:24 PM
-          </Text>
-        </View>
-        <View style={{ height: "100%" }}>
-          <Text style={{ color: "#A5A5A5", fontSize: 16, textAlign: "right" }}>
-            + 113.10 $
-          </Text>
-          <Text
-            style={{
-              color: "#505265",
-              fontSize: 12,
-              marginTop: 4,
-              textAlign: "right",
-            }}
-          >
-            Work
-          </Text>
-        </View>
-      </View>
-
-      <View
-        style={{
-          width: "100%",
-          height: 80,
-          flexDirection: "row",
-          alignItems: "flex-start",
-          justifyContent: "space-between",
-
-          paddingLeft: 30,
-          paddingRight: 30,
-        }}
-      >
-        <View style={{ height: "100%" }}>
-          <Text
-            style={{
-              color: "#A5A5A5",
-              textAlign: "left",
-              fontSize: 16,
-            }}
-          >
-            Ben Dover
-          </Text>
-          <Text
-            style={{
-              color: "#505265",
-              fontSize: 12,
-              marginTop: 4,
-              textAlign: "left",
-            }}
-          >
-            Today, 2:24 PM
-          </Text>
-        </View>
-        <View style={{ height: "100%" }}>
-          <Text style={{ color: "#A5A5A5", fontSize: 16, textAlign: "right" }}>
-            - 50.42 $
-          </Text>
-          <Text
-            style={{
-              color: "#505265",
-              fontSize: 12,
-              marginTop: 4,
-              textAlign: "right",
-            }}
-          >
-            Lend
-          </Text>
-        </View>
-      </View>
-    </View>
-  );
+const NoTransactionsComp = () => {
+    return <Text style={styles.noTransactions}>No Transactions have been made</Text>
 }
 
-const styles = StyleSheet.create({});
+export default function History() {
+    const count = useSelector((state) => state.transactions)
+    const dispatch = useDispatch()
+
+    const renderItem = (data) => {
+        console.log(data.item.amount)
+        return (
+            <Transaction
+                name={data.item.name}
+                date={new Date(data.item.date)}
+                label={data.item.label}
+                amount={data.item.amount}
+            />
+        )
+    }
+
+    //Test
+    useEffect(() => {
+        dispatch(addTransaction(Date.now(), Math.floor(Math.random() * 200), 'Food', 'Chipotle'))
+    }, [])
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.sectionHeader}>Transactions</Text>
+            {count && count.length <= 0 ? (
+                <NoTransactionsComp />
+            ) : (
+                <FlatList
+                    style={{ width: '100%' }}
+                    data={count}
+                    renderItem={renderItem}
+                    keyExtractor={(item, index) => index}
+                />
+            )}
+        </View>
+    )
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        width: '100%',
+        alignItems: 'center',
+    },
+    sectionHeader: {
+        textAlign: 'center',
+        fontSize: 18,
+        width: '80%',
+        color: '#777C91',
+        borderBottomColor: '#30313d',
+        borderBottomWidth: 1,
+        paddingBottom: 10,
+    },
+    noTransactions: {
+        textAlign: 'center',
+        fontSize: 12,
+        margin: 50,
+        color: '#505265',
+    },
+})

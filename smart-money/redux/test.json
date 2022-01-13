@@ -1,0 +1,13 @@
+{
+    "total": 124.53,
+    "transactions": [
+        {
+            "date": "14/42",
+            "total": 49.34,
+            "transactions": {
+                "time": "12:24",
+                "amount": -40.24
+            }
+        }
+    ]
+}
