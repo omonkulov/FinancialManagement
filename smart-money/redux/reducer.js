@@ -32,6 +32,7 @@ export default function reducer(state = initialState, action) {
         case 'transactionEntry':
             return {
                 ...state,
+                total: state.total + action.payload.amount,
                 transactions: [
                     ...state.transactions,
                     {
@@ -46,6 +47,28 @@ export default function reducer(state = initialState, action) {
         case 'transactionRemove':
             console.log(`Transaction #${action.payload.id} needs to be removed, but no code to run`)
             return state
+        case 'transactionRemoveLast':
+            console.log(`Last one is removed`)
+            if (state.transactions.length <= 0) {
+                return {
+                    ...state,
+                    total: 0,
+                    transactions: [],
+                }
+            }
+            let test = state.transactions[state.transactions.length - 1].amount
+            return {
+                ...state,
+                total: test && test > 0 ? state.total - test : 0,
+                transactions: [...state.transactions.slice(0, -1)],
+            }
+        case 'transactionDeleteAll':
+            console.log(`All is removed`)
+            return {
+                ...state,
+                total: 0,
+                transactions: [],
+            }
         case 'transactionEdit':
             console.log(`Transaction #${action.payload.id} needs to be edited, but no code to run`)
             return state

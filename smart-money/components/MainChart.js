@@ -8,17 +8,19 @@ import { Dimensions } from 'react-native'
 
 export default function MainChart({ data }) {
     const Decorator = ({ x, y, data }) => {
-        return data.map((value, index) => (
-            <Circle
-                cx={x(index)}
-                cy={y(value)}
-                key={index}
-                r={5}
-                stroke={'#222431'}
-                strokeWidth={2}
-                fill={`${value == 0 ? '#777C91' : value > 0 ? 'lightgreen' : 'red'}`}
-            />
-        ))
+        return data.map((value, index) => {
+            return (
+                <Circle
+                    cx={x(index)}
+                    cy={y(value)}
+                    key={index}
+                    r={5}
+                    stroke={'#222431'}
+                    strokeWidth={2}
+                    fill={`${value == 0 ? '#777C91' : value > 0 ? 'lightgreen' : 'red'}`}
+                />
+            )
+        })
     }
 
     const getYPosition = (pos) => {
@@ -70,7 +72,7 @@ export default function MainChart({ data }) {
                 position: 'absolute',
                 margin: 'auto',
             }}
-            data={data}
+            data={data.slice(Math.max(data.length - 10, 0))}
             contentInset={{ top: 10, bottom: 10, right: 10, left: 10 }}
             curve={shape.curveCatmullRom}
             animate={true}

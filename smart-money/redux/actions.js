@@ -13,6 +13,14 @@ export const deleteTransaction = (id) => ({
     payload: id,
 })
 
+export const deleteLastTransaction = () => ({
+    type: 'transactionRemoveLast',
+})
+
+export const deleteAllTransactions = () => ({
+    type: 'transactionDeleteAll',
+})
+
 export const editTransaction = (id) => ({
     type: 'transactionEdit',
     payload: id,

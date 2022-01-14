@@ -54,6 +54,7 @@ export default function Tabs() {
                 options={{
                     tabBarIcon: ({ focused }) => IconsForTab('Home', 'home', focused),
                 }}
+                onPress
             />
             <Tab.Screen
                 name="Acccount"

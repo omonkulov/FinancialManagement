@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import LABELS from './Labels'
 import Transaction from './Transaction'
 import { addTransaction } from '../redux/actions'
+import { ScrollView } from 'react-native'
 
 const NoTransactionsComp = () => {
     return <Text style={styles.noTransactions}>No Transactions have been made</Text>
@@ -14,39 +15,32 @@ const NoTransactionsComp = () => {
 
 export default function History() {
     const count = useSelector((state) => state.transactions)
-    const dispatch = useDispatch()
-
-    const renderItem = (data) => {
-        console.log(data.item.amount)
-        return (
-            <Transaction
-                name={data.item.name}
-                date={new Date(data.item.date)}
-                label={data.item.label}
-                amount={data.item.amount}
-            />
-        )
-    }
-
-    //Test
-    useEffect(() => {
-        dispatch(addTransaction(Date.now(), Math.floor(Math.random() * 200), 'Food', 'Chipotle'))
-    }, [])
 
     return (
-        <View style={styles.container}>
+        <ScrollView
+            style={styles.container}
+            contentContainerStyle={{ alignItems: 'center' }}
+            nestedScrollEnabled={true}
+            maxHieght
+            fadingEdgeLength={1}
+        >
             <Text style={styles.sectionHeader}>Transactions</Text>
             {count && count.length <= 0 ? (
                 <NoTransactionsComp />
             ) : (
-                <FlatList
-                    style={{ width: '100%' }}
-                    data={count}
-                    renderItem={renderItem}
-                    keyExtractor={(item, index) => index}
-                />
+                count.map((item, index) => {
+                    return (
+                        <Transaction
+                            name={index + ': ' + item.name}
+                            date={new Date(item.date)}
+                            label={item.label}
+                            amount={item.amount}
+                            key={index}
+                        />
+                    )
+                })
             )}
-        </View>
+        </ScrollView>
     )
 }
 
@@ -54,7 +48,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
-        alignItems: 'center',
+        height: 650,
     },
     sectionHeader: {
         textAlign: 'center',

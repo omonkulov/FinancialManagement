@@ -6,25 +6,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import MainChart from '../components/MainChart'
 import TotalNet from '../components/TotalNet'
 import History from '../components/History'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { Button } from 'react-native'
+import { addTransaction, deleteAllTransactions, deleteLastTransaction } from '../redux/actions'
 
 export default function HomeScreen() {
-    const transactions = useSelector((state) => state)
-    useEffect(async () => {
-        console.log(transactions)
-        try {
-            await AsyncStorage.setItem('@storage_Key', 'Test')
-            const value = await AsyncStorage.getItem('@storage_Key')
-            console.log(value)
-        } catch (e) {
-            // saving error
-        }
-    }, [])
+    const transactions = useSelector((state) => state.transactions)
+    const dispatch = useDispatch()
     return (
-        <SafeAreaView style={styles.root}>
+        <ScrollView style={styles.root} contentContainerStyle={{ alignItems: 'center' }}>
             <View style={styles.containerTotal}>
                 <TotalNet total={38.26} />
             </View>
+
+            <Button
+                title="Add"
+                onPress={() => dispatch(addTransaction(Date.now(), getRandomInt(-100, 101), 'Food', 'Chipotle'))}
+            />
+            <Button title="Delete" onPress={() => dispatch(deleteLastTransaction())} />
+            <Button title="Delete All" onPress={() => dispatch(deleteAllTransactions())} />
             <View
                 style={{
                     width: '100%',
@@ -33,17 +33,22 @@ export default function HomeScreen() {
                     paddingBottom: 5,
                     paddingTop: 5,
                     marginTop: 0,
-                    marginBottom: 100,
+                    marginBottom: 20,
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}
             >
-                <MainChart data={[0, -24.42, 88.68, 38.26]} style={{ width: '100%' }} />
+                <MainChart data={getTransactionAmountInArray(transactions)} style={{ width: '100%' }} />
             </View>
-
             <History />
-        </SafeAreaView>
+        </ScrollView>
     )
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min) + min) //The maximum is exclusive and the minimum is inclusive
 }
 
 const styles = StyleSheet.create({
@@ -57,7 +62,6 @@ const styles = StyleSheet.create({
     root: {
         backgroundColor: '#222431',
         flex: 1,
-        alignItems: 'center',
         paddingBottom: 85,
     },
     root2: {
@@ -74,3 +78,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 })
+
+const getTransactionAmountInArray = (transactions) => {
+    let temp = []
+    for (let i = 0; i < transactions.length; i++) {
+        if (i == 0) temp.push(transactions[i].amount)
+        else temp.push(transactions[i].amount + temp[temp.length - 1])
+    }
+
+    return temp
+}

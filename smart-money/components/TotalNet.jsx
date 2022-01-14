@@ -1,11 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { useSelector } from 'react-redux'
 
-export default function TotalNet({ total }) {
+export default function TotalNet() {
+    const total = useSelector((state) => state.total)
     return (
         <View style={styles.root}>
             <Text style={styles.secondary}>Today</Text>
-            <Text style={styles.amount}>$ {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</Text>
+            <Text style={styles.amount}>$ {total}</Text>
         </View>
     )
 }
