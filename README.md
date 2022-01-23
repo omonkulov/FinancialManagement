@@ -1,5 +1,5 @@
 # FinancialManagement
-React-Native Financial Manager app. ALlows you keep track of your money.
+React-Native Financial Manager app. Allows you keep track of your money.
 
 ### Home
 
